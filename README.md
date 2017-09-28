@@ -17,4 +17,4 @@ php artisan make:auth-tests --force
 Feel free to make PRs to this repo.
 
 ## License
-License can be found in the `LICENSE` file. It is a simple MIT, which basically means, use it howewer you like.
+License can be found in the `LICENSE` file. It is a simple MIT, which basically means -- use it howewer you like.
