@@ -11,7 +11,7 @@ class AuthTestsMakeCommand extends Command
      *
      * @var string
      */
-    protected $name = 'make:auth-tests';
+    protected $name = 'make:auth-tests {--force : Overwrite existing views by default}';
 
     /**
      * The console command description.
@@ -33,16 +33,49 @@ class AuthTestsMakeCommand extends Command
     ];
 
     /**
+     * Directories that must be created.
+     *
+     * @var array
+     */
+    protected $directories = [
+        'tests/Feature/Auth',
+    ];
+
+    /**
      * Execute the console command.
      *
      * @return void
      */
     public function handle()
     {
-        if (! is_dir($directory = base_path('tests/Feature/Auth'))) {
-            mkdir($directory, 0755, true);
-        }
+        $this->createDirectories();
 
+        $this->publishTests();
+
+        $this->info('Authentication tests generated successfully.');
+    }
+
+    /**
+     * Create required directories.
+     *
+     * @return void
+     */
+    public function createDirectories()
+    {
+        foreach ($this->directories as $dir) {
+            if (! is_dir($directory = base_path($dir))) {
+                mkdir($directory, 0755, true);
+            }
+        }
+    }
+
+    /**
+     * Publish all tests.
+     *
+     * @return void
+     */
+    public function publishTests()
+    {
         foreach ($this->tests as $key => $value) {
             if (file_exists($test = base_path('tests/' . $value)) && ! $this->option('force')) {
                 if (! $this->confirm("The [{$value}] test already exists. Do you want to replace it?")) {
@@ -55,7 +88,5 @@ class AuthTestsMakeCommand extends Command
                 $test
             );
         }
-
-        $this->info('Authentication tests generated successfully.');
     }
 }
