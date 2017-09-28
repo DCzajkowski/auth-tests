@@ -12,7 +12,7 @@ class AuthTestsMakeCommand extends Command
      * @var string
      */
     protected $name = 'make:auth-tests
-        {--force : Overwrite existing views by default}';
+                       {--force : Overwrite existing tests}';
 
     /**
      * The console command description.
