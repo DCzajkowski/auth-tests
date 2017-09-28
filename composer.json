@@ -18,6 +18,7 @@
     },
     "autoload": {
         "files": [
+            "src/AuthTestsServiceProvider.php",
             "src/Console/Commands/AuthTestsMakeCommand.php"
         ]
     }
