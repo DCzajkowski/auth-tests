@@ -5,7 +5,7 @@ namespace DCzajkowski\AuthTests;
 use DCzajkowski\AuthTests\Console\Commands\AuthTestsMakeCommand;
 use Illuminate\Support\ServiceProvider;
 
-class FractalServiceProvider extends ServiceProvider
+class AuthTestsServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
