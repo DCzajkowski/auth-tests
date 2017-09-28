@@ -7,16 +7,12 @@ use Tests\TestCase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
+use Tests\Feature\MakesRequestsFromPage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegisterTest extends TestCase
 {
-    use RefreshDatabase;
-
-    protected function fromPage($uri)
-    {
-        return $this->withServerVariables(['HTTP_REFERER' => $uri]);
-    }
+    use RefreshDatabase, MakesRequestsFromPage;
 
     public function testUserCanViewARegistrationForm()
     {

@@ -4,16 +4,12 @@ namespace Tests\Feature\Auth;
 
 use App\User;
 use Tests\TestCase;
+use Tests\Feature\MakesRequestsFromPage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginTest extends TestCase
 {
-    use RefreshDatabase;
-
-    protected function fromPage($uri)
-    {
-        return $this->withServerVariables(['HTTP_REFERER' => $uri]);
-    }
+    use RefreshDatabase, MakesRequestsFromPage;
 
     public function testUserCanViewALoginForm()
     {

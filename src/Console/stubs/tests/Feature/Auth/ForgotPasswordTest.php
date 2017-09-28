@@ -6,18 +6,14 @@ use App\User;
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Tests\Feature\MakesRequestsFromPage;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ForgotPasswordTest extends TestCase
 {
-    use RefreshDatabase;
-
-    protected function fromPage($uri)
-    {
-        return $this->withServerVariables(['HTTP_REFERER' => $uri]);
-    }
+    use RefreshDatabase, MakesRequestsFromPage;
 
     public function testUserCanViewAnEmailPasswordForm()
     {
