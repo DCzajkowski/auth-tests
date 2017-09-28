@@ -49,7 +49,7 @@ class ResetPasswordTest extends TestCase
         $response->assertRedirect(route('home'));
     }
 
-    public function testUserCanResetPasswordWithCorrectToken()
+    public function testUserCanResetPasswordWithValidToken()
     {
         Event::fake();
 
@@ -71,7 +71,7 @@ class ResetPasswordTest extends TestCase
         });
     }
 
-    public function testUserCannotResetPasswordWithIncorrectToken()
+    public function testUserCannotResetPasswordWithInvalidToken()
     {
         $user = factory(User::class)->create([
             'password' => bcrypt('old-password'),
@@ -97,7 +97,7 @@ class ResetPasswordTest extends TestCase
         ]);
 
         $response = $this->fromPage(route('password.reset', $token = $this->getValidToken($user)))->post('/password/reset', [
-            'token' => $this->getInvalidToken(),
+            'token' => $token,
             'email' => $user->email,
             'password' => '',
             'password_confirmation' => '',
@@ -119,7 +119,7 @@ class ResetPasswordTest extends TestCase
         ]);
 
         $response = $this->fromPage(route('password.reset', $token = $this->getValidToken($user)))->post('/password/reset', [
-            'token' => $this->getInvalidToken(),
+            'token' => $token,
             'email' => '',
             'password' => 'new-awesome-password',
             'password_confirmation' => 'new-awesome-password',
