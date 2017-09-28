@@ -25,8 +25,11 @@ php artisan make:auth-tests --force
 ```
 **Warning! All changes to the files this package provides will be lost when running this command!**
 
+## Automate your workflow
+Instead of including this package manually every project you create, simply create a bash function that will do that for you. I have included my personal function [here](https://gist.github.com/DCzajkowski/9ebaeaa09d136e77497e060449b03171). Feel free to edit it and reuse however you like.
+
 ## Contributing
 Feel free to make PRs to this repo.
 
 ## License
-License can be found in the `LICENSE` file. It is a simple MIT, which basically means -- use it howewer you like.
+License can be found in the `LICENSE` file. It is a simple MIT, which basically means -- use it however you like.
