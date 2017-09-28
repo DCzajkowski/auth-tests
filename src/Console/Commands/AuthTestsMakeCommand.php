@@ -31,6 +31,7 @@ class AuthTestsMakeCommand extends Command
         'Feature/Auth/LoginTest.php' => 'Feature/Auth/LoginTest.php',
         'Feature/Auth/RegisterTest.php' => 'Feature/Auth/RegisterTest.php',
         'Feature/Auth/ResetPasswordTest.php' => 'Feature/Auth/ResetPasswordTest.php',
+        'Feature/MakesRequestsFromPage.php' => 'Feature/MakesRequestsFromPage.php',
     ];
 
     /**

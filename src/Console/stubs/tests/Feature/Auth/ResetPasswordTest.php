@@ -6,13 +6,14 @@ use App\User;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Event;
+use Tests\Feature\MakesRequestsFromPage;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ResetPasswordTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, MakesRequestsFromPage;
 
     protected function getValidToken($user)
     {
@@ -22,11 +23,6 @@ class ResetPasswordTest extends TestCase
     protected function getInvalidToken()
     {
         return 'invalid-token';
-    }
-
-    protected function fromPage($uri)
-    {
-        return $this->withServerVariables(['HTTP_REFERER' => $uri]);
     }
 
     protected function passwordResetGetRoute($token)
