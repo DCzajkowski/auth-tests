@@ -27,10 +27,10 @@ class AuthTestsMakeCommand extends Command
      * @var array
      */
     protected $tests = [
-        'Feature/Auth/ForgotPasswordTest.stub' => 'Feature/Auth/ForgotPasswordTest.php',
-        'Feature/Auth/LoginTest.stub' => 'Feature/Auth/LoginTest.php',
-        'Feature/Auth/RegisterTest.stub' => 'Feature/Auth/RegisterTest.php',
-        'Feature/Auth/ResetPasswordTest.stub' => 'Feature/Auth/ResetPasswordTest.php',
+        'Feature/Auth/ForgotPasswordTest.php' => 'Feature/Auth/ForgotPasswordTest.php',
+        'Feature/Auth/LoginTest.php' => 'Feature/Auth/LoginTest.php',
+        'Feature/Auth/RegisterTest.php' => 'Feature/Auth/RegisterTest.php',
+        'Feature/Auth/ResetPasswordTest.php' => 'Feature/Auth/ResetPasswordTest.php',
     ];
 
     /**
