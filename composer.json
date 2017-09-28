@@ -1,6 +1,7 @@
 {
     "name": "dczajkowski/auth-tests",
     "description": "Authentication tests for Laravel built-in authentication module.",
+    "license": "MIT",
     "authors": [
         {
             "name": "Dariusz Czajkowski",
