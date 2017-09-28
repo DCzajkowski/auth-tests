@@ -39,6 +39,10 @@ class AuthTestsMakeCommand extends Command
      */
     public function handle()
     {
+        if (! is_dir($directory = base_path('tests/Feature/Auth'))) {
+            mkdir($directory, 0755, true);
+        }
+
         foreach ($this->tests as $key => $value) {
             if (file_exists($test = base_path('tests/' . $value)) && ! $this->option('force')) {
                 if (! $this->confirm("The [{$value}] test already exists. Do you want to replace it?")) {
