@@ -2,8 +2,8 @@
 
 namespace DCzajkowski\AuthTests;
 
-use DCzajkowski\AuthTests\Console\Commands\AuthTestsMakeCommand;
 use Illuminate\Support\ServiceProvider;
+use DCzajkowski\AuthTests\Console\Commands\AuthTestsMakeCommand;
 
 class AuthTestsServiceProvider extends ServiceProvider
 {
