@@ -1,6 +1,7 @@
 # Missing tests for Laravel's auth module
-## Requirements
-- Laravel 5.5
+## Versioning
+The version of this package reflects current major version of the Laravel framework. For example:
+If Laravel framework has version 5.5, version of this package compatible will be `5.5.*`.
 
 ## Installation
 ```bash
