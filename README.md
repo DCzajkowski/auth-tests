@@ -1,4 +1,7 @@
 # Missing tests for Laravel's auth module
+## Requirements
+- Laravel 5.5
+
 ## Installation
 ```bash
 composer require dczajkowski/auth-tests --dev
