@@ -1,0 +1,23 @@
+{
+    "name": "dczajkowski/auth-tests",
+    "description": "Authentication tests for Laravel built-in authentication module.",
+    "authors": [
+        {
+            "name": "Dariusz Czajkowski",
+            "email": "dare.czajkowski@gmail.com",
+            "homepage": "http://dczajkowski.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DCzajkowski\\AuthTests\\AuthTestsServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "files": [
+            "src/Console/Commands/AuthTestsMakeCommand.php"
+        ]
+    }
+}
