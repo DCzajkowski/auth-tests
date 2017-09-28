@@ -11,7 +11,8 @@ class AuthTestsMakeCommand extends Command
      *
      * @var string
      */
-    protected $name = 'make:auth-tests {--force : Overwrite existing views by default}';
+    protected $name = 'make:auth-tests
+        {--force : Overwrite existing views by default}';
 
     /**
      * The console command description.
