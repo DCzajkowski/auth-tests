@@ -1,4 +1,7 @@
 # Missing tests for Laravel's auth module
+[![Latest Stable Version](https://poser.pugx.org/dczajkowski/auth-tests/version)](https://packagist.org/packages/dczajkowski/auth-tests)
+[![License](https://poser.pugx.org/dczajkowski/auth-tests/license)](https://packagist.org/packages/dczajkowski/auth-tests)
+
 ## Versioning
 The version of this package reflects current major version of the Laravel framework. For example:
 If Laravel framework has version 5.5, version of this package compatible will be `5.5.*`.
