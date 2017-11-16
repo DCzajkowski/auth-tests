@@ -26,7 +26,7 @@ There are four options for your tests.
 # make:auth-tests
 public function testUserCanLogout();
 
-# make:auth-tests -s # or
+# make:auth-tests -s
 public function test_user_can_logout();
 
 # make:auth-tests -a
