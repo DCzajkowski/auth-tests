@@ -12,7 +12,7 @@ class AuthTestsMakeCommand extends Command
      * @var string
      */
     protected $signature = 'make:auth-tests
-        {--a|annotation : Don\'t prepend tests\' names with \'test\', but rather use @test annotation}
+        {--a|annotation : Don\'t prepend tests\' names with \'test\', but use @test annotation instead}
         {--s|snake-case : Use snake-case rather than camel-case}
         {--f|force : Overwrite existing tests}';
 
