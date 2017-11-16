@@ -12,7 +12,9 @@ class AuthTestsMakeCommand extends Command
      * @var string
      */
     protected $signature = 'make:auth-tests
-        {--force : Overwrite existing tests}';
+        {--a|annotation : Don\'t prepend tests\' names with \'test\', but rather use @test annotation}
+        {--s|snake-case : Use snake-case rather than camel-case}
+        {--f|force : Overwrite existing tests}';
 
     /**
      * The console command description.
@@ -85,10 +87,49 @@ class AuthTestsMakeCommand extends Command
                 }
             }
 
-            copy(
-                __DIR__ . '/../stubs/tests/' . $key,
-                $test
-            );
+            $this->publishStub(__DIR__ . '/../stubs/tests/' . $key, $test);
         }
+    }
+
+    /**
+     * Publish individual stubs.
+     *
+     * @return void
+     */
+    public function publishStub($stubPath, $destinationTest)
+    {
+        $content = file_get_contents($stubPath);
+
+        if ($this->option('snake-case')) {
+            $content = $this->snakeCase($content);
+        }
+
+        if ($this->option('annotation')) {
+            $content = $this->annotate($content);
+        }
+
+        file_put_contents($destinationTest, $content);
+    }
+
+    /**
+     * Get test in snake_case format.
+     *
+     * @return string
+     */
+    public function snakeCase($stub) {
+        return preg_replace_callback('/    public function test.+/', function ($matches) {
+            return strtolower(preg_replace('/(?!^)[[:upper:]][[:lower:]]/', '$0', preg_replace('/(?!^)[[:upper:]]+/', '_$0', $matches[0])));
+        }, $stub);
+    }
+
+    /**
+     * Get test in annotated format.
+     *
+     * @return string
+     */
+    public function annotate($stub) {
+        return str_replace('function _', 'function ', preg_replace_callback('/    public function test./', function ($matches) {
+            return '    /** @test */' . PHP_EOL . '    public function ' . strtolower($matches[0][-1]);
+        }, $stub));
     }
 }
