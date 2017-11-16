@@ -20,6 +20,25 @@ Edit `phpunit.xml` file by adding these two lines between `<php>` tags:
 ```
 Alternatively, use different database than sqlite, but also different from the one used for development.
 
+## Options
+There are four options for your tests.
+```php
+# make:auth-tests
+public function testUserCanLogout();
+
+# make:auth-tests -s # or
+public function test_user_can_logout();
+
+# make:auth-tests -a
+/** @test */
+public function userCanLogout();
+
+# make:auth-tests -sa
+/** @test */
+public function user_can_logout();
+```
+To review all flags run `php artisan make:auth-tests --help`
+
 ## Updating
 To update tests when a new version of this package arrives:
 ```bash
