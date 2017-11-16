@@ -116,7 +116,8 @@ class AuthTestsMakeCommand extends Command
      *
      * @return string
      */
-    public function snakeCase($stub) {
+    public function snakeCase($stub)
+    {
         return preg_replace_callback('/    public function test.+/', function ($matches) {
             return strtolower(preg_replace('/(?!^)[[:upper:]][[:lower:]]/', '$0', preg_replace('/(?!^)[[:upper:]]+/', '_$0', $matches[0])));
         }, $stub);
@@ -127,7 +128,8 @@ class AuthTestsMakeCommand extends Command
      *
      * @return string
      */
-    public function annotate($stub) {
+    public function annotate($stub)
+    {
         return str_replace('function _', 'function ', preg_replace_callback('/    public function test./', function ($matches) {
             return '    /** @test */' . PHP_EOL . '    public function ' . strtolower($matches[0][-1]);
         }, $stub));
