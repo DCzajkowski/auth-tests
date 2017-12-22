@@ -6,14 +6,13 @@ use App\User;
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Tests\Feature\MakesRequestsFromPage;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ForgotPasswordTest extends TestCase
 {
-    use RefreshDatabase, MakesRequestsFromPage;
+    use RefreshDatabase;
 
     protected function passwordRequestRoute()
     {
@@ -73,7 +72,7 @@ class ForgotPasswordTest extends TestCase
     {
         Notification::fake();
 
-        $response = $this->fromPage($this->passwordEmailGetRoute())->post($this->passwordEmailPostRoute(), [
+        $response = $this->from($this->passwordEmailGetRoute())->post($this->passwordEmailPostRoute(), [
             'email' => 'nobody@example.com',
         ]);
 
@@ -84,7 +83,7 @@ class ForgotPasswordTest extends TestCase
 
     public function testEmailIsRequired()
     {
-        $response = $this->fromPage($this->passwordEmailGetRoute())->post($this->passwordEmailPostRoute(), []);
+        $response = $this->from($this->passwordEmailGetRoute())->post($this->passwordEmailPostRoute(), []);
 
         $response->assertRedirect($this->passwordEmailGetRoute());
         $response->assertSessionHasErrors('email');
@@ -92,7 +91,7 @@ class ForgotPasswordTest extends TestCase
 
     public function testEmailIsAValidEmail()
     {
-        $response = $this->fromPage($this->passwordEmailGetRoute())->post($this->passwordEmailPostRoute(), [
+        $response = $this->from($this->passwordEmailGetRoute())->post($this->passwordEmailPostRoute(), [
             'email' => 'invalid-email',
         ]);
 

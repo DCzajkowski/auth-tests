@@ -4,12 +4,11 @@ namespace Tests\Feature\Auth;
 
 use App\User;
 use Tests\TestCase;
-use Tests\Feature\MakesRequestsFromPage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginTest extends TestCase
 {
-    use RefreshDatabase, MakesRequestsFromPage;
+    use RefreshDatabase;
 
     protected function successfulLoginRoute()
     {
@@ -79,7 +78,7 @@ class LoginTest extends TestCase
             'password' => bcrypt('i-love-laravel'),
         ]);
 
-        $response = $this->fromPage($this->loginGetRoute())->post($this->loginPostRoute(), [
+        $response = $this->from($this->loginGetRoute())->post($this->loginPostRoute(), [
             'email' => $user->email,
             'password' => 'invalid-password',
         ]);
@@ -93,7 +92,7 @@ class LoginTest extends TestCase
 
     public function testUserCannotLoginWithEmailThatDoesNotExist()
     {
-        $response = $this->fromPage($this->loginGetRoute())->post($this->loginPostRoute(), [
+        $response = $this->from($this->loginGetRoute())->post($this->loginPostRoute(), [
             'email' => 'nobody@example.com',
             'password' => 'invalid-password',
         ]);
@@ -130,7 +129,7 @@ class LoginTest extends TestCase
         ]);
 
         foreach (range(0, 5) as $_) {
-            $response = $this->fromPage($this->loginGetRoute())->post($this->loginPostRoute(), [
+            $response = $this->from($this->loginGetRoute())->post($this->loginPostRoute(), [
                 'email' => $user->email,
                 'password' => 'invalid-password',
             ]);

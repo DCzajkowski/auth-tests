@@ -9,6 +9,9 @@
             "homepage": "http://dczajkowski.com"
         }
     ],
+    "require": {
+        "laravel/framework": "~5.5.27"
+    },
     "extra": {
         "laravel": {
             "providers": [

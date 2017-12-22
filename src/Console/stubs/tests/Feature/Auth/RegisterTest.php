@@ -7,12 +7,11 @@ use Tests\TestCase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
-use Tests\Feature\MakesRequestsFromPage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegisterTest extends TestCase
 {
-    use RefreshDatabase, MakesRequestsFromPage;
+    use RefreshDatabase;
 
     protected function successfulRegistrationRoute()
     {
@@ -75,7 +74,7 @@ class RegisterTest extends TestCase
 
     public function testUserCannotRegisterWithoutName()
     {
-        $response = $this->fromPage($this->registerGetRoute())->post($this->registerPostRoute(), [
+        $response = $this->from($this->registerGetRoute())->post($this->registerPostRoute(), [
             'name' => '',
             'email' => 'john@example.com',
             'password' => 'i-love-laravel',
@@ -94,7 +93,7 @@ class RegisterTest extends TestCase
 
     public function testUserCannotRegisterWithoutEmail()
     {
-        $response = $this->fromPage($this->registerGetRoute())->post($this->registerPostRoute(), [
+        $response = $this->from($this->registerGetRoute())->post($this->registerPostRoute(), [
             'name' => 'John Doe',
             'email' => '',
             'password' => 'i-love-laravel',
@@ -113,7 +112,7 @@ class RegisterTest extends TestCase
 
     public function testUserCannotRegisterWithInvalidEmail()
     {
-        $response = $this->fromPage($this->registerGetRoute())->post($this->registerPostRoute(), [
+        $response = $this->from($this->registerGetRoute())->post($this->registerPostRoute(), [
             'name' => 'John Doe',
             'email' => 'invalid-email',
             'password' => 'i-love-laravel',
@@ -133,7 +132,7 @@ class RegisterTest extends TestCase
 
     public function testUserCannotRegisterWithoutPassword()
     {
-        $response = $this->fromPage($this->registerGetRoute())->post($this->registerPostRoute(), [
+        $response = $this->from($this->registerGetRoute())->post($this->registerPostRoute(), [
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'password' => '',
@@ -153,7 +152,7 @@ class RegisterTest extends TestCase
 
     public function testUserCannotRegisterWithoutPasswordConfirmation()
     {
-        $response = $this->fromPage($this->registerGetRoute())->post($this->registerPostRoute(), [
+        $response = $this->from($this->registerGetRoute())->post($this->registerPostRoute(), [
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'password' => 'i-love-laravel',
@@ -173,7 +172,7 @@ class RegisterTest extends TestCase
 
     public function testUserCannotRegisterWithPasswordsNotMatching()
     {
-        $response = $this->fromPage($this->registerGetRoute())->post($this->registerPostRoute(), [
+        $response = $this->from($this->registerGetRoute())->post($this->registerPostRoute(), [
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'password' => 'i-love-laravel',

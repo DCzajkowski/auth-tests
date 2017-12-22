@@ -7,13 +7,12 @@ use Tests\TestCase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Password;
-use Tests\Feature\MakesRequestsFromPage;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ResetPasswordTest extends TestCase
 {
-    use RefreshDatabase, MakesRequestsFromPage;
+    use RefreshDatabase;
 
     protected function getValidToken($user)
     {
@@ -93,7 +92,7 @@ class ResetPasswordTest extends TestCase
             'password' => bcrypt('old-password'),
         ]);
 
-        $response = $this->fromPage($this->passwordResetGetRoute($this->getInvalidToken()))->post($this->passwordResetPostRoute(), [
+        $response = $this->from($this->passwordResetGetRoute($this->getInvalidToken()))->post($this->passwordResetPostRoute(), [
             'token' => $this->getInvalidToken(),
             'email' => $user->email,
             'password' => 'new-awesome-password',
@@ -112,7 +111,7 @@ class ResetPasswordTest extends TestCase
             'password' => bcrypt('old-password'),
         ]);
 
-        $response = $this->fromPage($this->passwordResetGetRoute($token = $this->getValidToken($user)))->post($this->passwordResetPostRoute(), [
+        $response = $this->from($this->passwordResetGetRoute($token = $this->getValidToken($user)))->post($this->passwordResetPostRoute(), [
             'token' => $token,
             'email' => $user->email,
             'password' => '',
@@ -134,7 +133,7 @@ class ResetPasswordTest extends TestCase
             'password' => bcrypt('old-password'),
         ]);
 
-        $response = $this->fromPage($this->passwordResetGetRoute($token = $this->getValidToken($user)))->post($this->passwordResetPostRoute(), [
+        $response = $this->from($this->passwordResetGetRoute($token = $this->getValidToken($user)))->post($this->passwordResetPostRoute(), [
             'token' => $token,
             'email' => '',
             'password' => 'new-awesome-password',

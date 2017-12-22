@@ -6,6 +6,8 @@
 The version of this package reflects current major version of the Laravel framework. For example:
 If Laravel framework has version 5.5, version of this package compatible will be `5.5.*`.
 
+Note the new `5.5.5` release of this package is compatible with Laravel `~5.5.27` to make use of the new `from()` method.
+
 ## Installation
 ```bash
 composer require dczajkowski/auth-tests --dev
