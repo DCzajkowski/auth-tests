@@ -23,21 +23,43 @@ Edit `phpunit.xml` file by adding these two lines between `<php>` tags:
 Alternatively, use different database than sqlite, but also different from the one used for development.
 
 ## Options
-There are four options for your tests.
+There are four flags for customizing your tests. You can use any combination of them. (All flags have their short version e.g. `--zonda` or `-z`)
 ```php
 # make:auth-tests
-public function testUserCanLogout();
+public function testUserCanLogout()
+{
+    //
+}
 
-# make:auth-tests -s
-public function test_user_can_logout();
+# make:auth-tests --snake-case
+public function test_user_can_logout()
+{
+    //
+}
 
-# make:auth-tests -a
+# make:auth-tests --annotation
 /** @test */
-public function userCanLogout();
+public function userCanLogout()
+{
+    //
+}
 
-# make:auth-tests -sa
+# make:auth-tests --public
+function testUserCanLogout()
+{
+    //
+}
+
+# make:auth-tests --curly
+public function testUserCanLogout() {
+    //
+}
+
+# make:auth-tests -caps # or --zonda
 /** @test */
-public function user_can_logout();
+function user_can_logout() {
+    //
+}
 ```
 To review all flags run `php artisan make:auth-tests --help`
 
