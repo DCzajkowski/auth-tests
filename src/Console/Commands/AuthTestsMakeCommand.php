@@ -14,6 +14,9 @@ class AuthTestsMakeCommand extends Command
     protected $signature = 'make:auth-tests
         {--a|annotation : Don\'t prepend tests\' names with \'test\', but use @test annotation instead}
         {--s|snake-case : Use snake-case rather than camel-case}
+        {--p|public : Use php\'s implicit visibility (don\'t show \'public\' keyword)}
+        {--c|curly : Put curly brackets in the same line}
+        {--z|zonda : Full-on Zonda mode. Annotated, snake-cased methods without public keyword. Curly brackets in the same line}
         {--f|force : Overwrite existing tests}';
 
     /**
@@ -99,12 +102,20 @@ class AuthTestsMakeCommand extends Command
     {
         $content = file_get_contents($stubPath);
 
-        if ($this->option('snake-case')) {
+        if ($this->option('snake-case') || $this->option('zonda')) {
             $content = $this->snakeCase($content);
         }
 
-        if ($this->option('annotation')) {
+        if ($this->option('annotation') || $this->option('zonda')) {
             $content = $this->annotate($content);
+        }
+
+        if ($this->option('public') || $this->option('zonda')) {
+            $content = $this->removePublicKeyword($content);
+        }
+
+        if ($this->option('curly') || $this->option('zonda')) {
+            $content = $this->putCurlyBracketsInTheSameLine($content);
         }
 
         file_put_contents($destinationTest, $content);
@@ -132,5 +143,25 @@ class AuthTestsMakeCommand extends Command
         return str_replace('function _', 'function ', preg_replace_callback('/    public function test./', function ($matches) {
             return '    /** @test */' . PHP_EOL . '    public function ' . strtolower($matches[0][-1]);
         }, $stub));
+    }
+
+    /**
+     * Get test without 'public' keywords.
+     *
+     * @return string
+     */
+    public function removePublicKeyword($stub)
+    {
+        return str_replace('public function ', 'function ', $stub);
+    }
+
+    /**
+     * Get test with curly brackets in the same line.
+     *
+     * @return string
+     */
+    public function putCurlyBracketsInTheSameLine($stub)
+    {
+        return str_replace(")\n    {", ') {', str_replace("TestCase\n{", 'TestCase {', $stub));
     }
 }
