@@ -123,7 +123,7 @@ class AuthTestsMakeCommand extends Command
     }
 
     /**
-     * Get test in annotated format.
+     * Get test in an annotated format.
      *
      * @return string
      */
