@@ -118,7 +118,7 @@ class AuthTestsMakeCommand extends Command
     public function snakeCase($stub)
     {
         return preg_replace_callback('/    public function test.+/', function ($matches) {
-            return strtolower(preg_replace('/(?!^)[[:upper:]][[:lower:]]/', '$0', preg_replace('/(?!^)[[:upper:]]+/', '_$0', $matches[0])));
+            return strtolower(preg_replace('/([A-Z])/', '_$0', $matches[0]));
         }, $stub);
     }
 
