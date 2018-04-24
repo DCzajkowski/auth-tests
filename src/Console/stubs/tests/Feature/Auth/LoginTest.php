@@ -4,6 +4,7 @@ namespace Tests\Feature\Auth;
 
 use App\User;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginTest extends TestCase
@@ -69,6 +70,28 @@ class LoginTest extends TestCase
         ]);
 
         $response->assertRedirect($this->successfulLoginRoute());
+        $this->assertAuthenticatedAs($user);
+    }
+
+    public function testRememberMeFunctionality()
+    {
+        $user = factory(User::class)->create([
+            'id' => random_int(1, 100),
+            'password' => bcrypt($password = 'i-love-laravel'),
+        ]);
+
+        $response = $this->post($this->loginPostRoute(), [
+            'email' => $user->email,
+            'password' => $password,
+            'remember' => 'on',
+        ]);
+
+        $response->assertRedirect($this->successfulLoginRoute());
+        $response->assertCookie(Auth::guard()->getRecallerName(), vsprintf('%s|%s|%s', [
+            $user->id,
+            $user->getRememberToken(),
+            $user->password,
+        ]));
         $this->assertAuthenticatedAs($user);
     }
 
