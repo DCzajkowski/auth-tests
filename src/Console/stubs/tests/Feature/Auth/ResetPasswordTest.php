@@ -69,7 +69,6 @@ class ResetPasswordTest extends TestCase
         Event::fake();
         $user = factory(User::class)->create();
 
-        $this->withoutExceptionHandling();
         $response = $this->post($this->passwordResetPostRoute(), [
             'token' => $this->getValidToken($user),
             'email' => $user->email,
