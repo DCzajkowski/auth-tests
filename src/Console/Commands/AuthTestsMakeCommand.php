@@ -37,8 +37,9 @@ class AuthTestsMakeCommand extends Command
         'Feature/Auth/LoginTest.php',
         'Feature/Auth/RegisterTest.php',
         'Feature/Auth/ResetPasswordTest.php',
-        'Feature/Auth/EmailVerificationTest.php',
     ];
+
+    protected $emailVerificationTest = 'Feature/Auth/EmailVerificationTest.php';
 
     /**
      * Directories that must be created.
@@ -87,7 +88,7 @@ class AuthTestsMakeCommand extends Command
         $tests = $this->tests;
 
         if (! $this->option('without-email-verification')) {
-            $tests[$this->emailVerificationTest['stubPath']] = $this->emailVerificationTest['destinationTest'];
+            $tests[] = $this->emailVerificationTest;
         }
 
         foreach ($tests as $test) {
