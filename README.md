@@ -3,7 +3,7 @@
 [![License MIT](https://poser.pugx.org/dczajkowski/auth-tests/license)](https://packagist.org/packages/dczajkowski/auth-tests)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
 
-![](https://i.imgur.com/317NxDZ.png)
+![](https://i.imgur.com/1z5XkDc.png)
 
 ## Versioning
 The version of this package reflects current major version of the Laravel framework. For example:
