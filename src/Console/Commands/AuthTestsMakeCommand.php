@@ -92,13 +92,13 @@ class AuthTestsMakeCommand extends Command
         }
 
         foreach ($tests as $test) {
-            if (file_exists($test = base_path('tests/' . $test)) && ! $this->option('force')) {
+            if (file_exists($destination = base_path('tests/' . $test)) && ! $this->option('force')) {
                 if (! $this->confirm("The [{$test}] test already exists. Do you want to replace it?")) {
                     continue;
                 }
             }
 
-            $this->publishStub(__DIR__ . '/../stubs/tests/' . $test, $test);
+            $this->publishStub(__DIR__ . '/../stubs/tests/' . $test, $destination);
         }
     }
 
