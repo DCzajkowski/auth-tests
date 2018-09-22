@@ -32,10 +32,10 @@ class AuthTestsMakeCommand extends Command
      * @var array
      */
     protected $tests = [
-        'Feature/Auth/ForgotPasswordTest.php' => 'Feature/Auth/ForgotPasswordTest.php',
-        'Feature/Auth/LoginTest.php' => 'Feature/Auth/LoginTest.php',
-        'Feature/Auth/RegisterTest.php' => 'Feature/Auth/RegisterTest.php',
-        'Feature/Auth/ResetPasswordTest.php' => 'Feature/Auth/ResetPasswordTest.php',
+        'Feature/Auth/ForgotPasswordTest.php',
+        'Feature/Auth/LoginTest.php',
+        'Feature/Auth/RegisterTest.php',
+        'Feature/Auth/ResetPasswordTest.php',
     ];
 
     /**
@@ -82,14 +82,14 @@ class AuthTestsMakeCommand extends Command
      */
     public function publishTests()
     {
-        foreach ($this->tests as $key => $value) {
-            if (file_exists($test = base_path('tests/' . $value)) && ! $this->option('force')) {
-                if (! $this->confirm("The [{$value}] test already exists. Do you want to replace it?")) {
+        foreach ($this->tests as $test) {
+            if (file_exists($test = base_path('tests/' . $test)) && ! $this->option('force')) {
+                if (! $this->confirm("The [{$test}] test already exists. Do you want to replace it?")) {
                     continue;
                 }
             }
 
-            $this->publishStub(__DIR__ . '/../stubs/tests/' . $key, $test);
+            $this->publishStub(__DIR__ . '/../stubs/tests/' . $test, $test);
         }
     }
 
