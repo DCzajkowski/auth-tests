@@ -23,6 +23,19 @@ Edit `phpunit.xml` file by adding these two lines between `<php>` tags:
 ```
 Alternatively, use different database than sqlite, but also different from the one used for development.
 
+### Using the e-mail verification feature
+If you want to use the e-mail verification feature, you will have to make following changes:
+- update `routes/web.php`:
+```diff
+-Auth::routes();
++Auth::routes(['verify' => true]);
+```
+- update `app/User.php`:
+```diff
+- class User extends Authenticatable
++ class User extends Authenticatable implements MustVerifyEmail
+```
+
 ## Options
 There are four flags for customizing your tests. You can use any combination of them. (All flags have their short version e.g. `--zonda` or `-z`)
 ```php
