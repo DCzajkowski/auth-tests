@@ -12,7 +12,7 @@ If Laravel framework has version 5.6, version of this package compatible will be
 ## Installation
 ```bash
 composer require dczajkowski/auth-tests --dev
-php artisan make:auth # if not ran previously
+php artisan make:auth --without-email-verification # if not ran previously
 php artisan make:auth-tests
 ```
 
