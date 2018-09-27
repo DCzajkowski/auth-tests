@@ -17,6 +17,7 @@ class AuthTestsMakeCommand extends Command
         {--p|public : Use php\'s implicit visibility (don\'t show \'public\' keyword)}
         {--c|curly : Put curly brackets in the same line}
         {--z|zonda : Full-on Zonda mode. Annotated, snake-cased methods without public keyword. Curly brackets in the same line}
+        {--without-email-verification : Don\'t include a test connected to the email verification feature added in Laravel 5.7}
         {--f|force : Overwrite existing tests}';
 
     /**
@@ -37,6 +38,8 @@ class AuthTestsMakeCommand extends Command
         'Feature/Auth/RegisterTest.php',
         'Feature/Auth/ResetPasswordTest.php',
     ];
+
+    protected $emailVerificationTest = 'Feature/Auth/EmailVerificationTest.php';
 
     /**
      * Directories that must be created.
@@ -82,7 +85,13 @@ class AuthTestsMakeCommand extends Command
      */
     public function publishTests()
     {
-        foreach ($this->tests as $test) {
+        $tests = $this->tests;
+
+        if (! $this->option('without-email-verification')) {
+            $tests[] = $this->emailVerificationTest;
+        }
+
+        foreach ($tests as $test) {
             if (file_exists($destination = base_path('tests/' . $test)) && ! $this->option('force')) {
                 if (! $this->confirm("The [{$test}] test already exists. Do you want to replace it?")) {
                     continue;

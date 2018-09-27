@@ -3,7 +3,7 @@
 [![License MIT](https://poser.pugx.org/dczajkowski/auth-tests/license)](https://packagist.org/packages/dczajkowski/auth-tests)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
 
-![](https://i.imgur.com/317NxDZ.png)
+![](https://i.imgur.com/1z5XkDc.png)
 
 ## Versioning
 The version of this package reflects current major version of the Laravel framework. For example:
@@ -62,13 +62,15 @@ function user_can_logout() {
     //
 }
 ```
-To review all flags run `php artisan make:auth-tests --help`
+Since version 5.7 there has been a new test for email verification added. You can omit it by running `--without-email-verification`.
+
+To review all flags run `php artisan make:auth-tests --help`.
 
 ## Updating
 To update tests when a new version of this package arrives:
 ```bash
 composer update dczajkowski/auth-tests
-php artisan make:auth-tests --force
+php artisan make:auth-tests
 ```
 **Warning! All changes to the files this package provides will be lost when running this command!**
 
