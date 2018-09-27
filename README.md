@@ -27,8 +27,8 @@ Alternatively, use different database than sqlite, but also different from the o
 If you want to use the e-mail verification feature, you will have to make following changes:
 - update `routes/web.php`:
 ```diff
--Auth::routes();
-+Auth::routes(['verify' => true]);
+- Auth::routes();
++ Auth::routes(['verify' => true]);
 ```
 - update `app/User.php`:
 ```diff
