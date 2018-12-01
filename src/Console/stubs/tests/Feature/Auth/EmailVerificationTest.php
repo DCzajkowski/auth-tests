@@ -95,7 +95,7 @@ class EmailVerificationTest extends TestCase
             'email_verified_at' => null,
         ]);
 
-        factory(User::class)->create(['id' => 2, 'email_verified_at' => null]);
+        $user2 = factory(User::class)->create(['id' => 2, 'email_verified_at' => null]);
 
         $response = $this->actingAs($user)->get($this->validVerificationVerifyRoute(2));
 
