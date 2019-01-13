@@ -126,7 +126,7 @@ class ResetPasswordTest extends TestCase
         $this->assertGuest();
     }
 
-    public function testUserCannotResetPasswordWithoutProvingAnEmail()
+    public function testUserCannotResetPasswordWithoutProvidingAnEmail()
     {
         $user = factory(User::class)->create([
             'password' => bcrypt('old-password'),
