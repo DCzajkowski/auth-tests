@@ -86,6 +86,8 @@ class LoginTest extends TestCase
             'remember' => 'on',
         ]);
 
+        $user = $user->fresh();
+
         $response->assertRedirect($this->successfulLoginRoute());
         $response->assertCookie(Auth::guard()->getRecallerName(), vsprintf('%s|%s|%s', [
             $user->id,
