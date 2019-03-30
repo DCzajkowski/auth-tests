@@ -88,7 +88,7 @@ class ResetPasswordTest extends TestCase
     public function testUserCannotResetPasswordWithInvalidToken()
     {
         $user = factory(User::class)->create([
-            'password' => bcrypt('old-password'),
+            'password' => Hash::make('old-password'),
         ]);
 
         $response = $this->from($this->passwordResetGetRoute($this->getInvalidToken()))->post($this->passwordResetPostRoute(), [
@@ -107,7 +107,7 @@ class ResetPasswordTest extends TestCase
     public function testUserCannotResetPasswordWithoutProvidingANewPassword()
     {
         $user = factory(User::class)->create([
-            'password' => bcrypt('old-password'),
+            'password' => Hash::make('old-password'),
         ]);
 
         $response = $this->from($this->passwordResetGetRoute($token = $this->getValidToken($user)))->post($this->passwordResetPostRoute(), [
@@ -129,7 +129,7 @@ class ResetPasswordTest extends TestCase
     public function testUserCannotResetPasswordWithoutProvidingAnEmail()
     {
         $user = factory(User::class)->create([
-            'password' => bcrypt('old-password'),
+            'password' => Hash::make('old-password'),
         ]);
 
         $response = $this->from($this->passwordResetGetRoute($token = $this->getValidToken($user)))->post($this->passwordResetPostRoute(), [

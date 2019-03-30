@@ -5,6 +5,7 @@ namespace Tests\Feature\Auth;
 use App\User;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginTest extends TestCase
@@ -61,7 +62,7 @@ class LoginTest extends TestCase
     public function testUserCanLoginWithCorrectCredentials()
     {
         $user = factory(User::class)->create([
-            'password' => bcrypt($password = 'i-love-laravel'),
+            'password' => Hash::make($password = 'i-love-laravel'),
         ]);
 
         $response = $this->post($this->loginPostRoute(), [
@@ -77,7 +78,7 @@ class LoginTest extends TestCase
     {
         $user = factory(User::class)->create([
             'id' => random_int(1, 100),
-            'password' => bcrypt($password = 'i-love-laravel'),
+            'password' => Hash::make($password = 'i-love-laravel'),
         ]);
 
         $response = $this->post($this->loginPostRoute(), [
@@ -100,7 +101,7 @@ class LoginTest extends TestCase
     public function testUserCannotLoginWithIncorrectPassword()
     {
         $user = factory(User::class)->create([
-            'password' => bcrypt('i-love-laravel'),
+            'password' => Hash::make('i-love-laravel'),
         ]);
 
         $response = $this->from($this->loginGetRoute())->post($this->loginPostRoute(), [
@@ -150,7 +151,7 @@ class LoginTest extends TestCase
     public function testUserCannotMakeMoreThanFiveAttemptsInOneMinute()
     {
         $user = factory(User::class)->create([
-            'password' => bcrypt($password = 'i-love-laravel'),
+            'password' => Hash::make($password = 'i-love-laravel'),
         ]);
 
         foreach (range(0, 5) as $_) {
