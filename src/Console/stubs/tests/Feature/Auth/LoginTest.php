@@ -42,6 +42,11 @@ class LoginTest extends TestCase
         return route('home');
     }
 
+    protected function getTooManyLoginAttemptsMessage()
+    {
+        return sprintf('/^%s$/', str_replace('\:seconds', '\d+', preg_quote(__('auth.throttle'), '/')));
+    }
+
     public function testUserCanViewALoginForm()
     {
         $response = $this->get($this->loginGetRoute());
@@ -163,9 +168,10 @@ class LoginTest extends TestCase
 
         $response->assertRedirect($this->loginGetRoute());
         $response->assertSessionHasErrors('email');
-        $this->assertContains(
-            'Too many login attempts.',
-            collect($response
+        $this->assertRegExp(
+            $this->getTooManyLoginAttemptsMessage(),
+            collect(
+                $response
                 ->baseResponse
                 ->getSession()
                 ->get('errors')
