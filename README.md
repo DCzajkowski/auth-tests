@@ -18,8 +18,8 @@ php artisan make:auth-tests --without-email-verification
 
 Edit `phpunit.xml` file by adding these two lines between `<php>` tags:
 ```xml
-<env name="DB_CONNECTION" value="sqlite"/>
-<env name="DB_DATABASE" value=":memory:"/>
+<server name="DB_CONNECTION" value="sqlite"/>
+<server name="DB_DATABASE" value=":memory:"/>
 ```
 Alternatively, use different database than sqlite, but also different from the one used for development.
 
