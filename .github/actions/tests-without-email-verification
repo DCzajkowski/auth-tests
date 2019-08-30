@@ -1,0 +1,9 @@
+#!/bin/bash
+
+source $GITHUB_WORKSPACE/.github/actions/common/setup
+
+# Include tests
+php artisan make:auth-tests --without-email-verification
+
+# Prepare for running tests
+sed -i 's#<server name="SESSION_DRIVER" value="array"/>#<server name="SESSION_DRIVER" value="array"/><server name="DB_CONNECTION" value="sqlite"/><server name="DB_DATABASE" value=":memory:"/>#g' phpunit.xml

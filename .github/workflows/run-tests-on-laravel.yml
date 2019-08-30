@@ -1,0 +1,43 @@
+name: 'Run tests on Laravel'
+
+on:
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  test_without_email_verification:
+    name: 'Runs tests without email verification module on latest Laravel'
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+
+    - name: 'Verifies environment'
+      run: |
+        php -v
+        composer --version
+
+    - name: 'Sets up tests'
+      run: /bin/bash -e $GITHUB_WORKSPACE/.github/actions/tests-without-email-verification
+
+    - name: 'Runs tests'
+      run: ( cd test-app && ./vendor/bin/phpunit )
+
+  test_with_email_verification:
+    name: 'Runs tests with email verification module on latest Laravel'
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+
+    - name: 'Verifies environment'
+      run: |
+        php -v
+        composer --version
+
+    - name: 'Sets up tests'
+      run: /bin/bash -e $GITHUB_WORKSPACE/.github/actions/tests-with-email-verification
+
+    - name: 'Runs tests'
+      run: ( cd test-app && ./vendor/bin/phpunit )
