@@ -25,14 +25,20 @@ class EmailVerificationTest extends TestCase
         return route('verification.notice');
     }
 
-    protected function validVerificationVerifyRoute($id)
+    protected function validVerificationVerifyRoute($user)
     {
-        return URL::signedRoute($this->verificationVerifyRouteName, ['id' => $id]);
+        return URL::signedRoute($this->verificationVerifyRouteName, [
+            'id' => $user->id,
+            'hash' => sha1($user->getEmailForVerification()),
+        ]);
     }
 
-    protected function invalidVerificationVerifyRoute($id)
+    protected function invalidVerificationVerifyRoute($user)
     {
-        return route($this->verificationVerifyRouteName, ['id' => $id]) . '?signature=invalid-signature';
+        return route($this->verificationVerifyRouteName, [
+            'id' => $user->id,
+            'hash' => 'invalid-hash',
+        ]);
     }
 
     protected function verificationResendRoute()
@@ -77,12 +83,12 @@ class EmailVerificationTest extends TestCase
 
     public function testGuestCannotSeeTheVerificationVerifyRoute()
     {
-        factory(User::class)->create([
+        $user = factory(User::class)->create([
             'id' => 1,
             'email_verified_at' => null,
         ]);
 
-        $response = $this->get($this->validVerificationVerifyRoute(1));
+        $response = $this->get($this->validVerificationVerifyRoute($user));
 
         $response->assertRedirect($this->loginRoute());
     }
@@ -96,7 +102,7 @@ class EmailVerificationTest extends TestCase
 
         $user2 = factory(User::class)->create(['id' => 2, 'email_verified_at' => null]);
 
-        $response = $this->actingAs($user)->get($this->validVerificationVerifyRoute(2));
+        $response = $this->actingAs($user)->get($this->validVerificationVerifyRoute($user2));
 
         $response->assertForbidden();
         $this->assertFalse($user2->fresh()->hasVerifiedEmail());
@@ -108,18 +114,18 @@ class EmailVerificationTest extends TestCase
             'email_verified_at' => now(),
         ]);
 
-        $response = $this->actingAs($user)->get($this->validVerificationVerifyRoute($user->id));
+        $response = $this->actingAs($user)->get($this->validVerificationVerifyRoute($user));
 
         $response->assertRedirect($this->successfulVerificationRoute());
     }
 
-    public function testForbiddenIsReturnedWhenSignatureIsInvalidInVerificationVerfyRoute()
+    public function testForbiddenIsReturnedWhenSignatureIsInvalidInVerificationVerifyRoute()
     {
         $user = factory(User::class)->create([
             'email_verified_at' => now(),
         ]);
 
-        $response = $this->actingAs($user)->get($this->invalidVerificationVerifyRoute($user->id));
+        $response = $this->actingAs($user)->get($this->invalidVerificationVerifyRoute($user));
 
         $response->assertStatus(403);
     }
@@ -130,7 +136,7 @@ class EmailVerificationTest extends TestCase
             'email_verified_at' => null,
         ]);
 
-        $response = $this->actingAs($user)->get($this->validVerificationVerifyRoute($user->id));
+        $response = $this->actingAs($user)->get($this->validVerificationVerifyRoute($user));
 
         $response->assertRedirect($this->successfulVerificationRoute());
         $this->assertNotNull($user->fresh()->email_verified_at);
@@ -138,7 +144,7 @@ class EmailVerificationTest extends TestCase
 
     public function testGuestCannotResendAVerificationEmail()
     {
-        $response = $this->get($this->verificationResendRoute());
+        $response = $this->post($this->verificationResendRoute());
 
         $response->assertRedirect($this->loginRoute());
     }
@@ -149,7 +155,7 @@ class EmailVerificationTest extends TestCase
             'email_verified_at' => now(),
         ]);
 
-        $response = $this->actingAs($user)->get($this->verificationResendRoute());
+        $response = $this->actingAs($user)->post($this->verificationResendRoute());
 
         $response->assertRedirect($this->successfulVerificationRoute());
     }
@@ -163,7 +169,7 @@ class EmailVerificationTest extends TestCase
 
         $response = $this->actingAs($user)
             ->from($this->verificationNoticeRoute())
-            ->get($this->verificationResendRoute());
+            ->post($this->verificationResendRoute());
 
         Notification::assertSentTo($user, VerifyEmail::class);
         $response->assertRedirect($this->verificationNoticeRoute());

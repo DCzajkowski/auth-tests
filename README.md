@@ -10,9 +10,14 @@ The version of this package reflects current major version of the Laravel framew
 If Laravel framework has version 5.6, version of this package compatible will be `5.6.*`.
 
 ## Installation
+> Before installation please make sure you have scaffolded
+> frontend views with a `--auth` flag e.g.
+> ```bash
+> composer require laravel/ui && php artisan ui vue --auth
+> ```
+
 ```bash
 composer require dczajkowski/auth-tests --dev
-php artisan make:auth # if not ran previously
 php artisan make:auth-tests --without-email-verification
 ```
 

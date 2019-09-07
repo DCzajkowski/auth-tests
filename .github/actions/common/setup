@@ -5,11 +5,12 @@ commit="tmp-$(git rev-parse --verify HEAD)"
 git checkout -b $commit
 
 # Create Laravel project
-composer create-project --prefer-dist laravel/laravel test-app
+composer create-project --prefer-dist laravel/laravel test-app 6.0
 cd test-app
 
-# Scaffold Authentication
-php artisan make:auth
+# Require Laravel auth preset and setup views
+composer require laravel/ui
+php artisan ui vue --auth
 
 # Require the package
 composer config repositories.dczajkowski/auth-tests vcs $GITHUB_WORKSPACE
