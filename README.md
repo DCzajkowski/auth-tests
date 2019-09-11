@@ -99,4 +99,4 @@ Instead of including this package manually every project you create, simply crea
 Feel free to make PRs to this repo.
 
 ## License
-License can be found in the `LICENSE` file. It is a simple MIT, which basically means -- use it however you like.
+This package is open-source software licensed under the MIT license (same as Laravel itself).
