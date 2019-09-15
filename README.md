@@ -6,8 +6,10 @@
 ![](https://i.imgur.com/1z5XkDc.png)
 
 ## Versioning
-The version of this package reflects current major version of the Laravel framework. For example:
-If Laravel framework has version 5.6, version of this package compatible will be `5.6.*`.
+~The version of this package reflects current major version of the Laravel framework. For example:
+If Laravel framework has version 5.6, version of this package compatible will be `5.6.*`.~
+
+Due to changes in Laravel's versioning scheme, version 6.1.* will aim to be compatible with a version 6.1.* of Laravel. For example, _auth-tests_ version 6.1.1 and 6.1.20 will be all compatible with Laravel 6.1.*
 
 ## Installation
 > Before installation please make sure you have scaffolded
