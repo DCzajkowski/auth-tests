@@ -29,11 +29,6 @@ class ForgotPasswordTest extends TestCase
         return route('password.email');
     }
 
-    protected function guestMiddlewareRoute()
-    {
-        return route('home');
-    }
-
     public function testUserCanViewAnEmailPasswordForm()
     {
         $response = $this->get($this->passwordRequestRoute());
@@ -42,13 +37,14 @@ class ForgotPasswordTest extends TestCase
         $response->assertViewIs('auth.passwords.email');
     }
 
-    public function testUserCannotViewAnEmailPasswordFormWhenAuthenticated()
+    public function testUserCanViewAnEmailPasswordFormWhenAuthenticated()
     {
         $user = factory(User::class)->make();
 
         $response = $this->actingAs($user)->get($this->passwordRequestRoute());
 
-        $response->assertRedirect($this->guestMiddlewareRoute());
+        $response->assertSuccessful();
+        $response->assertViewIs('auth.passwords.email');
     }
 
     public function testUserReceivesAnEmailWithAPasswordResetLink()

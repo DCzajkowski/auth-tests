@@ -39,11 +39,6 @@ class ResetPasswordTest extends TestCase
         return route('home');
     }
 
-    protected function guestMiddlewareRoute()
-    {
-        return route('home');
-    }
-
     public function testUserCanViewAPasswordResetForm()
     {
         $user = factory(User::class)->create();
@@ -55,13 +50,15 @@ class ResetPasswordTest extends TestCase
         $response->assertViewHas('token', $token);
     }
 
-    public function testUserCannotViewAPasswordResetFormWhenAuthenticated()
+    public function testUserCanViewAPasswordResetFormWhenAuthenticated()
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user)->get($this->passwordResetGetRoute($this->getValidToken($user)));
+        $response = $this->actingAs($user)->get($this->passwordResetGetRoute($token = $this->getValidToken($user)));
 
-        $response->assertRedirect($this->guestMiddlewareRoute());
+        $response->assertSuccessful();
+        $response->assertViewIs('auth.passwords.reset');
+        $response->assertViewHas('token', $token);
     }
 
     public function testUserCanResetPasswordWithValidToken()

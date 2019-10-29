@@ -5,7 +5,7 @@ commit="tmp-$(git rev-parse --verify HEAD)"
 git checkout -b $commit
 
 # Create Laravel project
-composer create-project --prefer-dist laravel/laravel test-app 6.0
+composer create-project --prefer-dist laravel/laravel test-app 6.4
 cd test-app
 
 # Require Laravel auth preset and setup views
