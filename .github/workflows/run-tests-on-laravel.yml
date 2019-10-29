@@ -1,6 +1,8 @@
 name: 'Run tests on Laravel'
 
 on:
+  schedule:
+    - cron:  '0 8 * * *'
   pull_request:
     branches:
     - master
