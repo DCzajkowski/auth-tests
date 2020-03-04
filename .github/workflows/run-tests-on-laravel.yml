@@ -9,7 +9,7 @@ on:
 
 jobs:
   test_without_email_verification:
-    name: (PHP ${{ matrix.php }}, Laravel 6) Tests without email verification
+    name: (PHP ${{ matrix.php }}, Laravel 7) Tests without email verification
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -37,7 +37,7 @@ jobs:
       run: ( cd test-app && ./vendor/bin/phpunit )
 
   test_with_email_verification:
-    name: (PHP ${{ matrix.php }}, Laravel 6) Tests with email verification
+    name: (PHP ${{ matrix.php }}, Laravel 7) Tests with email verification
     runs-on: ubuntu-latest
     strategy:
       matrix:

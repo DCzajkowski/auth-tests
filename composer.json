@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "laravel/framework": "^6.0"
+        "laravel/framework": "^7.0"
     },
     "extra": {
         "laravel": {
