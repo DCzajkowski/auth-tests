@@ -3,10 +3,10 @@
 namespace Tests\Feature\Auth;
 
 use App\User;
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
