@@ -5,6 +5,13 @@
 
 ![](https://i.imgur.com/1z5XkDc.png)
 
+## ⚠️ Deprecation notice ⚠️
+As of Laravel 8, the [laravel/ui](https://github.com/laravel/ui) package is discouraged to be used on new Laravel installations. **This package should be used only with already-existing, created with Laravel 7 or lower, applications that use laravel/ui auth controllers.**
+
+All of the applications already using [laravel/ui](https://github.com/laravel/ui) will get updates of this package to new Laravel versions, although the support may be dropped in the future. This doesn't mean you won't be able to use the package or upgrade to new Laravel versions, but that the upgrades to the major versions may require manual changes from the consumers of this package.
+
+The new way of installing Laravel 8's and above auth scaffolding is using the `--jet` option in the Laravel installer. Laravel [Jetstream](https://github.com/laravel/jetstream) hides all of its controllers inside the package, meaning it doesn't make sense to test those controllers, as they [are already tested inside the package](https://github.com/laravel/jetstream/tree/1.x/tests).
+
 ## Versioning
 ~The version of this package reflects current major version of the Laravel framework. For example:
 If Laravel framework has version 5.6, version of this package compatible will be `5.6.*`.~
@@ -37,7 +44,7 @@ If you want to use the e-mail verification feature, you will have to make follow
 - Auth::routes();
 + Auth::routes(['verify' => true]);
 ```
-- update `app/User.php`:
+- update `app/Models/User.php`:
 ```diff
 - class User extends Authenticatable
 + class User extends Authenticatable implements MustVerifyEmail

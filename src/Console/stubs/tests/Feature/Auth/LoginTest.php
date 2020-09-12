@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Auth;
 
-use App\User;
-use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
@@ -57,7 +57,7 @@ class LoginTest extends TestCase
 
     public function testUserCannotViewALoginFormWhenAuthenticated()
     {
-        $user = factory(User::class)->make();
+        $user = User::factory()->make();
 
         $response = $this->actingAs($user)->get($this->loginGetRoute());
 
@@ -66,7 +66,7 @@ class LoginTest extends TestCase
 
     public function testUserCanLoginWithCorrectCredentials()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'password' => Hash::make($password = 'i-love-laravel'),
         ]);
 
@@ -81,7 +81,7 @@ class LoginTest extends TestCase
 
     public function testRememberMeFunctionality()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'id' => random_int(1, 100),
             'password' => Hash::make($password = 'i-love-laravel'),
         ]);
@@ -105,7 +105,7 @@ class LoginTest extends TestCase
 
     public function testUserCannotLoginWithIncorrectPassword()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'password' => Hash::make('i-love-laravel'),
         ]);
 
@@ -137,7 +137,7 @@ class LoginTest extends TestCase
 
     public function testUserCanLogout()
     {
-        $this->be(factory(User::class)->create());
+        $this->be(User::factory()->create());
 
         $response = $this->post($this->logoutRoute());
 
@@ -155,7 +155,7 @@ class LoginTest extends TestCase
 
     public function testUserCannotMakeMoreThanFiveAttemptsInOneMinute()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'password' => Hash::make($password = 'i-love-laravel'),
         ]);
 
@@ -168,7 +168,7 @@ class LoginTest extends TestCase
 
         $response->assertRedirect($this->loginGetRoute());
         $response->assertSessionHasErrors('email');
-        $this->assertRegExp(
+        $this->assertMatchesRegularExpression(
             $this->getTooManyLoginAttemptsMessage(),
             collect(
                 $response

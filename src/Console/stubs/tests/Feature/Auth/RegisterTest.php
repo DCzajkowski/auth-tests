@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Auth;
 
-use App\User;
-use Tests\TestCase;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Event;
+use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
@@ -43,7 +43,7 @@ class RegisterTest extends TestCase
 
     public function testUserCannotViewARegistrationFormWhenAuthenticated()
     {
-        $user = factory(User::class)->make();
+        $user = User::factory()->make();
 
         $response = $this->actingAs($user)->get($this->registerGetRoute());
 

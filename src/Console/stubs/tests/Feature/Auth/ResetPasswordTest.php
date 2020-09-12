@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Auth;
 
-use App\User;
-use Tests\TestCase;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Password;
+use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Tests\TestCase;
 
 class ResetPasswordTest extends TestCase
 {
@@ -41,7 +41,7 @@ class ResetPasswordTest extends TestCase
 
     public function testUserCanViewAPasswordResetForm()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->get($this->passwordResetGetRoute($token = $this->getValidToken($user)));
 
@@ -52,7 +52,7 @@ class ResetPasswordTest extends TestCase
 
     public function testUserCanViewAPasswordResetFormWhenAuthenticated()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get($this->passwordResetGetRoute($token = $this->getValidToken($user)));
 
@@ -64,7 +64,7 @@ class ResetPasswordTest extends TestCase
     public function testUserCanResetPasswordWithValidToken()
     {
         Event::fake();
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->post($this->passwordResetPostRoute(), [
             'token' => $this->getValidToken($user),
@@ -84,7 +84,7 @@ class ResetPasswordTest extends TestCase
 
     public function testUserCannotResetPasswordWithInvalidToken()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'password' => Hash::make('old-password'),
         ]);
 
@@ -103,7 +103,7 @@ class ResetPasswordTest extends TestCase
 
     public function testUserCannotResetPasswordWithoutProvidingANewPassword()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'password' => Hash::make('old-password'),
         ]);
 
@@ -125,7 +125,7 @@ class ResetPasswordTest extends TestCase
 
     public function testUserCannotResetPasswordWithoutProvidingAnEmail()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'password' => Hash::make('old-password'),
         ]);
 
