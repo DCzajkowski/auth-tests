@@ -172,11 +172,11 @@ class LoginTest extends TestCase
             $this->getTooManyLoginAttemptsMessage(),
             collect(
                 $response
-                ->baseResponse
-                ->getSession()
-                ->get('errors')
-                ->getBag('default')
-                ->get('email')
+                    ->baseResponse
+                    ->getSession()
+                    ->get('errors')
+                    ->getBag('default')
+                    ->get('email')
             )->first()
         );
         $this->assertTrue(session()->hasOldInput('email'));
